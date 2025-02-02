@@ -26,22 +26,21 @@ st.sidebar.markdown(
     """, unsafe_allow_html=True
 )
  
-
 # ------------------ Load Dataset ------------------
-file_path = r"C:\Users\puvanavks\OneDrive\Desktop\Energy Dashboard\Processed_Merged_Energy_Data.xlsx"  # Use raw string literal
+file_path = r"C:\Users\puvanavks\OneDrive\Desktop\Energy Dashboard\Processed_Merged_Energy_Data.xlsx"
 
-# Check if the file exists and try to load it
-if os.path.exists(file_path):
-    try:
-        df = pd.read_excel(file_path)
-        # Display the dataframe (Optional)
-        st.write(df.head())  # Show the first few rows to confirm it's loaded
-    except Exception as e:
-        st.error(f"Failed to load dataset: {e}")  # Display error if file loading fails
-        st.stop()  # Stops execution if there is an error
-else:
-    st.error("File not found at the given path")  # Display error if file doesn't exist
-    st.stop()  # Stops execution if file is not found
+# Check if the file exists
+if not os.path.exists(file_path):
+    st.error("File not found at the given path")
+    st.stop()  # Stop execution immediately
+
+# Try loading the dataset
+try:
+    df = pd.read_excel(file_path)
+except Exception as e:
+    st.error(f"Failed to load dataset: {e}")
+    st.stop()  # Stop execution immediately
+
 
 # ------------------ Sidebar Filters ------------------
 st.sidebar.markdown(
