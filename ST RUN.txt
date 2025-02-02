@@ -1,0 +1,3 @@
+cd Energy-Consumption-Analysis
+
+streamlit run "energy_dashboard.py"
