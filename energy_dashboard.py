@@ -111,7 +111,6 @@ if 'df' in locals() and not df.empty:
 else:
     st.sidebar.error("The dataset is empty or not loaded properly.")
  
- 
 st.markdown(
     """
     <h1 style="text-align: center;
@@ -124,15 +123,16 @@ st.markdown(
     </h1>
     <h3 style="text-align: center; color: grey; font-size: 36px; font-weight: bold;">2000-2023</h3> <!-- Bigger font size for 2000-2023 -->
     <p style="text-align: center; color: grey; font-size: 16px; padding: 15px; width: 90%; margin: auto; font-weight: bold;">
-        This dashboard provides essential insights into primary energy consumption patterns and their connection to regional economic factors, population, and energy sources.
-        Analyzing historical trends, such as global primary energy consumption by region and the proportion of energy sources, helps identify areas of high demand and the shift towards renewable energy.
-        The economic impact analyses, like energy consumption vs. GDP and population, offer valuable context for understanding the drivers of primary energy use.
+        This dashboard provides essential insights into primary <span style="color: #FFD700;">energy consumption</span> patterns and their connection to regional economic factors, population, and energy sources.
+        Analyzing historical trends, such as global primary <span style="color: #FFD700;">energy consumption</span> by region and the proportion of <span style="color: #FFD700;">energy sources</span>, helps identify areas of high demand and the shift towards <span style="color: #FFD700;">renewable energy</span>.
+        The <span style="color: #FFD700;">economic impact</span> analyses, like <span style="color: #FFD700;">energy consumption</span> vs. GDP and population, offer valuable context for understanding the drivers of primary energy use.
         Additionally, energy consumption forecasts are vital for future planning, helping policymakers and businesses make informed decisions on resource allocation, infrastructure development,
-        and strategies for sustainability.
+        and strategies for <span style="color: #FFD700;">sustainability</span>.
     </p>
     """, unsafe_allow_html=True
 )
- 
+
+
  
 # Divider between sections
 st.markdown("---")
