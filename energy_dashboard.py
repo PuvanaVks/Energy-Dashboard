@@ -143,27 +143,27 @@ st.markdown(
     <h2 style="color: #FF7F32; text-align: center;">Energy Consumption Historical Trends</h2>
     """, unsafe_allow_html=True
 )
- 
+
 st.write("""
     <div style="text-align: center; width: 80%; margin: auto;">
         This section provides a high-level summary of the key insights from the entire dashboard,
         including global trends, regional variations, and major contributors to energy consumption.
     </div>
 """, unsafe_allow_html=True)
- 
+
 st.markdown(
     """
     <p style="text-align: center; color: grey; font-size: 16px; padding: 0; width: 80%; margin: auto;">
         Hover over charts to get options to Download Plot as a PNG, Zoom, Pen, Zoom In, Zoom Out, Auto Scale, Reset Axis, Full Screen.
+        <br><br>
     </p>
     """, unsafe_allow_html=True
 )
- 
- 
+
 if not final_data.empty:
     # Create columns for side-by-side charts with dividers
     col1, col_divider1, col2, col_divider2, col3 = st.columns([4, 0.1, 4, 0.1, 4])
- 
+
     # Global Trends per Region
     with col1:
         trend_data = final_data.groupby(["Year", "Region"]).agg({
@@ -171,7 +171,7 @@ if not final_data.empty:
             "gdp": "mean",
             "population": "mean"
         }).reset_index()
- 
+
         fig_trends = px.line(
             trend_data,
             x="Year",
@@ -181,8 +181,12 @@ if not final_data.empty:
             labels={"primary_energy_consumption": "Energy Consumption (TWH)", "Year": "Year"},
             markers=True
         )
+        fig_trends.update_layout(
+            height=400,  # Fixed height for consistency
+            margin={"t": 40, "b": 80, "l": 50, "r": 50}  # Ensure consistent margins
+        )
         st.plotly_chart(fig_trends, use_container_width=True)
- 
+
     # Vertical light grey divider between Global Trends and Energy Source Contribution
     with col_divider1:
         st.markdown(
@@ -191,14 +195,14 @@ if not final_data.empty:
             """,
             unsafe_allow_html=True
         )
- 
+
     # Energy Source Contribution per Region
     with col2:
         energy_sources = final_data.groupby("Region")[["oilcons_ej", "coalcons_ej", "gascons_ej", "ren_power_ej"]].sum().reset_index()
-       
+
         # Calculate the sum of each energy source column across regions
         energy_sources_sum = energy_sources[["oilcons_ej", "coalcons_ej", "gascons_ej", "ren_power_ej"]].sum()
- 
+
         # Create a pie chart using the total sums for each energy source
         energy_pie = px.pie(
             names=energy_sources_sum.index,  # Names are the energy sources (columns)
@@ -206,8 +210,12 @@ if not final_data.empty:
             title="Proportion of Energy Sources by Region",
             hole=0.4
         )
+        energy_pie.update_layout(
+            height=400,  # Fixed height for consistency
+            margin={"t": 40, "b": 80, "l": 50, "r": 50}  # Ensure consistent margins
+        )
         st.plotly_chart(energy_pie, use_container_width=True)
- 
+
     # Vertical light grey divider between Energy Source Contribution and Top Countries
     with col_divider2:
         st.markdown(
@@ -216,29 +224,40 @@ if not final_data.empty:
             """,
             unsafe_allow_html=True
         )
- 
+
     # Top Energy Consuming Countries by Region
     with col3:
         top_countries = final_data.groupby(["Region", "Country"])["primary_energy_consumption"].sum().reset_index()
         top_countries_region = top_countries[top_countries["Region"].isin(selected_regions)]
-        top_countries_region = top_countries_region.groupby("Region").apply(lambda x: x.nlargest(5, "primary_energy_consumption")).reset_index(drop=True)
- 
+
+        # Sort the data before applying nlargest to ensure proper alignment
+        top_countries_region_sorted = top_countries_region.sort_values("primary_energy_consumption", ascending=False)
+        top_countries_region_sorted = top_countries_region_sorted.groupby("Region").head(3).reset_index(drop=True)
+
         fig_top_countries = px.bar(
-            top_countries_region,
+            top_countries_region_sorted,
             x="primary_energy_consumption",
             y="Country",
             color="Region",
             orientation="h",
-            title="Top 5 Energy Consuming Countries by Region",
+            title="Top 3 Energy Consuming Countries by Region",
             labels={"primary_energy_consumption": "Energy Consumption (TWH)", "Country": "Country"}
         )
+        
+        fig_top_countries.update_layout(
+            height=400,  # Fixed height for consistency
+            margin={"t": 40, "b": 80, "l": 50, "r": 50},  # Ensure consistent margins
+            yaxis=dict(tickmode='linear', tickangle=0),  # Ensure y-axis labels are not skipped
+        )
+
         st.plotly_chart(fig_top_countries, use_container_width=True)
- 
+
 else:
     st.write("No data to display for the selected filters.")
- 
+
 # Divider between sections
 st.markdown("---")
+
  
 # ------------------ Economic Impact Section ----------------------
 st.markdown(
@@ -259,10 +278,11 @@ st.markdown(
     """
     <p style="text-align: center; color: grey; font-size: 16px; padding: 0; width: 80%; margin: auto;">
         Hover over charts to get options to Download Plot as a PNG, Zoom, Pen, Zoom In, Zoom Out, Auto Scale, Reset Axis, Full Screen.
+        <br><br>  <!-- Add line breaks for spacing -->
     </p>
     """, unsafe_allow_html=True
 )
- 
+
  
 # Extract the final year from the selected year range
 final_year = year_range[1]  # Get the maximum (final) year from the slider
