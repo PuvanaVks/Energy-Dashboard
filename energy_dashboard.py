@@ -178,7 +178,7 @@ if not final_data.empty:
             y="primary_energy_consumption",
             color="Region",  # Color the lines by Region
             title="Global Energy Consumption Trends by Region",
-            labels={"primary_energy_consumption": "Energy Consumption (TWH)", "Year": "Year"},
+            labels={"primary_energy_consumption": "Energy Consumption (TWh)", "Year": "Year"},
             markers=True
         )
         fig_trends.update_layout(
@@ -241,7 +241,7 @@ if not final_data.empty:
             color="Region",
             orientation="h",
             title="Top 3 Energy Consuming Countries by Region",
-            labels={"primary_energy_consumption": "Energy Consumption (TWH)", "Country": "Country"}
+            labels={"primary_energy_consumption": "Energy Consumption (TWh)", "Country": "Country"}
         )
         
         fig_top_countries.update_layout(
@@ -358,7 +358,7 @@ st.markdown("---")
  
 st.markdown(
     """
-<h2 style="color: #FF7F32; text-align: center;">Energy Consumption Forecast in TWH</h2>
+<h2 style="color: #FF7F32; text-align: center;">Energy Consumption Forecast in TWh</h2>
     """, unsafe_allow_html=True
 )
  
@@ -467,10 +467,10 @@ with col2:
             # Prepare future forecast DataFrame
             future_forecast_df = pd.DataFrame({
                 "Year": future_years,
-                f"Predicted Energy Consumption (TWH) - {country}": adjusted_forecast
+                f"Predicted Energy Consumption (TWh) - {country}": adjusted_forecast
             })
  
-            forecast_combined.append(future_forecast_df.set_index("Year")[f"Predicted Energy Consumption (TWH) - {country}"])
+            forecast_combined.append(future_forecast_df.set_index("Year")[f"Predicted Energy Consumption (TWh) - {country}"])
  
         # Combine historical and forecast data for plotting
         historical_data_combined = ts_data.loc[ts_data.index <= 2023]
@@ -485,7 +485,7 @@ with col2:
             x="Year",
             y=combined_data.columns[1:],  # All forecast columns
             title=f"Energy Consumption Forecast for {', '.join(selected_countries_predict)}",
-            labels={"Year": "Year", "Energy Consumption (TWH)": "Energy Consumption (TWH)"},
+            labels={"Year": "Year", "Energy Consumption (TWh)": "Energy Consumption (TWh)"},
             markers=True
         )
  
