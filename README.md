@@ -7,7 +7,6 @@ This project provides an interactive dashboard for visualizing energy consumptio
 Follow these steps to set up and run the application:
 
 ### 1. Clone the Repository
-```sh
 git clone https://github.com/PuvanaVks/Energy-Dashboard.git
 cd Energy-Dashboard
 
