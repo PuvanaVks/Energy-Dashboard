@@ -424,7 +424,7 @@ with col2:
    
     st.markdown(
         """
-        <div style="background-color: #d9d9d9;
+        <div style="background-color: #F5F5F5;
                     padding: 10px;
                     border-radius: 5px;
                     font-size: 14px;
@@ -436,8 +436,7 @@ with col2:
         </div>
         """, unsafe_allow_html=True
     )
- 
- 
+    
     # Filter data for the selected countries
     countries_data = final_data[final_data["Country"].isin(selected_countries_predict)]
  
