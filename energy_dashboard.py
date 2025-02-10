@@ -114,11 +114,11 @@ else:
 st.markdown(
     """
     <h1 style="text-align: center;
-              padding: 20px;
-              background-color: #4CAF50;
-              color: white;
-              border-radius: 10px;
-              border: 5px solid white;"> <!-- White border -->
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            border: 5px solid #D3D3D3;"> <!-- Light grey border -->
         Energy Consumption Dashboard
     </h1>
     <h3 style="text-align: center; color: grey; font-size: 36px; font-weight: bold;">2000-2023</h3> <!-- Bigger font size for 2000-2023 -->
@@ -515,14 +515,14 @@ st.markdown("---")
  
 st.markdown(
     """
-    <div style="text-align: center; color: white; font-size: 16px; margin-top: 10px; background-color: #808080; border-radius: 5px; font-weight: normal; border: 2px solid black;">
-        <strong style="font-size: 18px; color: white;">Data Source:</strong><br>
-        Energy Institute (Up to 2023)<br>
-        OurWorldInData.org (Up to 2023)
+    <div style="text-align: center; color: white; font-size: 16px; margin-top: 10px; background-color: #D3D3D3; border-radius: 5px; font-weight: normal;">
+        <strong style="font-size: 18px; color: black;">Data Source:</strong><br>
+        <span style="color: black;">Energy Institute (Up to 2023)</span><br>
+        <span style="color: black;">OurWorldInData.org (Up to 2023)</span>
     </div>
     """, unsafe_allow_html=True
 )
- 
+
  
 # Divider between sections
 st.markdown("---")
